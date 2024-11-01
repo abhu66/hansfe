@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -19,7 +20,7 @@ class AuthController extends Controller
                 'password' => 'required',
                 ]);
 
-                $response = Http::post('128.199.218.154:8000/api/user/login', [
+                $response = Http::post(env('API_URL') . '/api/user/login', [
                     'email'=> $request->email,
                     'password'=> $request->password
                 ]);
@@ -37,12 +38,6 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
-
-        // if ($response->successful()) {
-        //     return redirect()->route('dashboard')->with('success','Login berhasil');
-        // } else {
-        //     return back()->withErrors(['Login error' =>'Login gagal, periksa kembali email dan password anda']);
-        // }
     }
 
     public function logout () {

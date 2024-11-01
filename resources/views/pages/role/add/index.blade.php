@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Add User Page')
+@section('title', 'Add Role Page')
 @section('content')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Add User Form</h4>
+                    <h4 class="card-title mb-0">Add Role Form</h4>
                 </div>
                 <div class="card-body">
 
@@ -22,43 +22,37 @@
 
                     @if (Session::has('error'))
                         <div class="alert alert-danger justify-content-start align-items-center" role="alert">
-                            {{-- {{ Session::get('error') }} --}}
-                            <p>Konfirmasi Password Tidak Sesuai</p>
+                            {{ Session::get('error') }}
                         </div>
                     @endif
 
-                    <form action="{{ route('user.store') }}" method="POST">
+                    <form action="{{ route('role.store') }}" method="POST">
                         @csrf
                         <div class="row g-3">
                             <div class="col-lg-6">
                                 <div>
-                                    <label class="form-label" for="name">Name</label>
+                                    <label class="form-label" for="name">Role Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter your name" required />
+                                        placeholder="Enter role name" required />
                                 </div>
                             </div>
-
-                            <div class="col-lg-6">
-                                <div>
-                                    <label class="form-label" for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Enter your email" required />
+                            <div class="col-lg-12">
+                                <div class="form-check mt-1">
+                                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
+                                        value="1" {{ isset($data) && $data->is_active == 1 ? 'checked' : '' }}>
+                                    <label class="form-check-label ms-2" for="is_active">Is Active</label>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
-                                <div>
-                                    <label class="form-label" for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Enter your password" required />
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div>
-                                    <label class="form-label" for="c_password">Confirm Password</label>
-                                    <input type="password" class="form-control" id="c_password"
-                                        name="c_password" placeholder="Confirm your password" required />
+                                <div class="d-flex flex-wrap">
+                                    @foreach ($f_role as $data)
+                                        <div class="form-check mt-1 me-3"> <!-- Margin end for spacing -->
+                                            <input type="checkbox" class="form-check-input" id="role_{{ $data->id }}"
+                                                name="roles[]" value="{{ $data->id }}"
+                                                {{ $data->is_active ? '' : 'checked' }}>
+                                            <label class="form-check-label ms-2" for="role_{{ $data->id }}">{{ $data->name }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -69,6 +63,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
                 <!-- end card body -->
             </div>

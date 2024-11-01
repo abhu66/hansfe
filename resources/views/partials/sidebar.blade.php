@@ -74,7 +74,6 @@
     <div id="scrollbar">
         <div class="container-fluid">
 
-
             <div id="two-column-menu">
             </div>
             <ul class="navbar-nav" id="navbar-nav">
@@ -91,14 +90,13 @@
                                     User </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('form') }}" class="nav-link" data-key="t-crm">Form lengkap</a>
+                                <a href="{{ route('role')}}" class="nav-link" data-key="t-ecommerce"> Role </a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
+                                <a href="{{ route('upload') }}" class="nav-link" data-key="t-crm"> Upload </a>
                             </li>
                             <li class="nav-item">
-                                <a href="dashboard-crypto.html" class="nav-link" data-key="t-crypto"> Crypto
-                                </a>
+                                <a href="{{ route('form') }}" class="nav-link" data-key="t-crm"> Form lengkap </a>
                             </li>
                             <li class="nav-item">
                                 <a href="dashboard-projects.html" class="nav-link" data-key="t-projects">
