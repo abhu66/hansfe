@@ -28,7 +28,4 @@ Route::middleware(['isLoginValid'])->group(function () {
     Route::get('/upload', [UploadController::class, 'showUpload'])->name('upload');
     Route::post('/upload/store', [UploadController::class, 'store'])->name('upload.store');
 
-
-
-    Route::get("/form", [DashboardController::class, "showForm"])->name('form');
 });
