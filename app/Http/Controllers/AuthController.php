@@ -20,7 +20,7 @@ class AuthController extends Controller
                 'password' => 'required',
                 ]);
 
-                $response = Http::post(env('API_URL') . '/api/user/login', [
+                $response = Http::post(env('API_URL') . '/api/v1/user/login', [
                     'email'=> $request->email,
                     'password'=> $request->password
                 ]);

@@ -15,7 +15,7 @@ class RoleController extends Controller
             $token = Session::get('token');
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->post(env('API_URL') . '/api/roles/get');
+            ])->post(env('API_URL') . '/api/v1/roles/get');
 
             if ($response->successful() && $response->json('success')) {
                 $data = $response->json('data');
@@ -64,7 +64,7 @@ class RoleController extends Controller
             $is_active = $request->is_active;
 
             $client = new Client();
-            $res = $client->request('POST', env('API_URL') . '/api/roles/create',  [
+            $res = $client->request('POST', env('API_URL') . '/api/v1/roles/create',  [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                 ],
@@ -81,7 +81,7 @@ class RoleController extends Controller
                 ],
             ]);
 
-            $res = $client->request('POST', env('API_URL') . '/api/roles/create',  [
+            $res = $client->request('POST', env('API_URL') . '/api/v1/roles/create',  [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                 ],

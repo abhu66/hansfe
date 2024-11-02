@@ -26,6 +26,7 @@ Route::middleware(['isLoginValid'])->group(function () {
     Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
 
     Route::get('/upload', [UploadController::class, 'showUpload'])->name('upload');
+    Route::post('/upload/store', [UploadController::class, 'store'])->name('upload.store');
 
 
 
