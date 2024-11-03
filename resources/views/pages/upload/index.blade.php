@@ -48,11 +48,11 @@
                                             <td>{{ $data->filename }}</td>
                                             <td>
                                                 @if ($data->status == 1)
-                                                    Process
+                                                    <span class="badge bg-primary">Process</span>
                                                 @elseif ($data->status == 2)
-                                                    Success
+                                                    <span class="badge bg-success">Success</span>
                                                 @else
-                                                    Failed
+                                                    <span class="badge bg-danger">Failed</span>
                                                 @endif
                                             </td>
                                             <td>

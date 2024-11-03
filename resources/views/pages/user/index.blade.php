@@ -15,7 +15,6 @@
                 </div><!-- end card header -->
 
                 <div class="card-body">
-                    <p class="text-muted">Use <code>table</code> class to show bootstrap-based default table.</p>
                     <div class="live-preview">
                         <div class="table-responsive">
                             <table class="table align-middle table-nowrap mb-0">
@@ -24,8 +23,10 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Created at</th>
-                                        <th scope="col">Updated at</th>
+                                        <th scope="col">Created date</th>
+                                        <th scope="col">Updated date</th>
+                                        <th scope="col">Created by</th>
+                                        <th scope="col">Updated by</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -38,11 +39,13 @@
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->email }}</td>
                                             <td>
-                                                {{ $data->created_at ? \Carbon\Carbon::parse($data->created_at)->format('d-m-Y H:i') : '-' }}
+                                                {{ $data->created_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
                                             </td>
                                             <td>
-                                                {{ $data->updated_at ? \Carbon\Carbon::parse($data->updated_at)->format('d-m-Y H:i') : '-' }}
+                                                {{ $data->updated_date ? \Carbon\Carbon::parse($data->updated_date)->format('d-m-Y H:i') : '-' }}
                                             </td>
+                                            <td>{{ $data->created_by }}</td>
+                                            <td>{{ $data->updated_by }}</td>
                                             <td>{{ $data->role->name ?? '-' }}</td>
                                             <td><a href="javascript:void(0);" class="link-success">View More <i
                                                         class="ri-arrow-right-line align-middle"></i></a></td>

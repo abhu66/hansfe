@@ -26,9 +26,7 @@ class UserController extends Controller
                 $data = $response->json('data');
                 $data = json_decode($response);
                 $user = $data->data;
-
-                return view("pages.user.index", compact("user"));
-            } else {
+                // dd($user);
                 return view("pages.user.index", compact("user"));
             }
         } catch (\Throwable $th) {
@@ -41,7 +39,28 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("pages.user.add.index");
+        try {
+            $token = Session::get('token');
+            if (!$token) {
+                return redirect()->back()->with('error', 'Token tidak ditemukan.');
+            }
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->post(env('API_URL') . '/api/v1/roles/get');
+
+            if ($response->successful() && $response->json('success')) {
+                $data = $response->json('data');
+                $f_role = json_decode(json_encode($data)); // Mengonversi array menjadi objek jika dibutuhin
+
+                return view("pages.user.add.index", compact("f_role"));
+            } else {
+                return redirect()->back()->with('error', 'Gagal mengambil data function role.');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+
     }
 
     /**
@@ -55,6 +74,7 @@ class UserController extends Controller
             $email = $request->email;
             $password = $request->password;
             $c_password = $request->c_password;
+            $roleId = $request->role_id;
 
             $client = new Client();
             $res = $client->request('POST', env('API_URL') . '/api/v1/user/create',  [
@@ -79,6 +99,10 @@ class UserController extends Controller
                         'name'     => 'c_password',
                         'contents' => $c_password,
                     ],
+                    [
+                        'name'     => 'roles_id',
+                        'contents' => $roleId,
+                    ]
                 ],
             ]);
 

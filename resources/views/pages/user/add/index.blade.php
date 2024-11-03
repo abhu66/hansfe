@@ -30,6 +30,7 @@
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf
                         <div class="row g-3">
+
                             <div class="col-lg-6">
                                 <div>
                                     <label class="form-label" for="name">Name</label>
@@ -59,6 +60,18 @@
                                     <label class="form-label" for="c_password">Confirm Password</label>
                                     <input type="password" class="form-control" id="c_password"
                                         name="c_password" placeholder="Confirm your password" required />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label class="form-label" for="role">Role</label>
+                                    <select name="role_id" id="role_id" class="form-control">
+                                        <option value="">Select a Role</option>
+                                        @foreach ($f_role as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 

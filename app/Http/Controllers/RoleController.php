@@ -30,6 +30,7 @@ class RoleController extends Controller
         }
     }
 
+
     public function create()
     {
         try {
@@ -40,14 +41,12 @@ class RoleController extends Controller
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->post(env('API_URL') . '/api/functions/get');
-
-                // dd($response->body());
+            ])->post(env('API_URL') . '/api/v1/functions/get');
 
             if ($response->successful() && $response->json('success')) {
                 $data = $response->json('data');
-                $f_role = json_decode(json_encode($data)); // Mengonversi array menjadi objek jika dibutuhkan
-                // dd($f_role);
+                $f_role = json_decode(json_encode($data)); // Mengonversi array menjadi objek jika dibutuhin
+
                 return view("pages.role.add.index", compact("f_role"));
             } else {
                 return redirect()->back()->with('error', 'Gagal mengambil data function role.');
@@ -61,7 +60,8 @@ class RoleController extends Controller
     {
         try {
             $name = $request->name;
-            $is_active = $request->is_active;
+            $is_active = $request->is_active; // Ambil status aktif dari checkbox
+            $roles = $request->roles; // Ambil array ID role dari checkbox
 
             $client = new Client();
             $res = $client->request('POST', env('API_URL') . '/api/v1/roles/create',  [
@@ -69,32 +69,10 @@ class RoleController extends Controller
                     'Authorization' => 'Bearer ' . Session::get('token'),
                 ],
                 'verify' => false,
-                'multipart' => [
-                    [
-                        'name'     => 'name',
-                        'contents' => $name,
-                    ],
-                    [
-                        'name'     => 'is_active',
-                        'contents' => $is_active ? '1' : '0',
-                    ],
-                ],
-            ]);
-
-            $res = $client->request('POST', env('API_URL') . '/api/v1/roles/create',  [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                ],
-                'verify' => false,
-                'multipart' => [
-                    [
-                        'name'     => 'name',
-                        'contents' => $name,
-                    ],
-                    [
-                        'name'     => 'is_active',
-                        'contents' => $is_active ? '1' : '0',
-                    ],
+                'json' => [ // Gunakan 'json' untuk mengirimkan data sebagai JSON
+                    'name' => $name,
+                    'is_active' => $is_active ? true : false, // Set true/false sesuai checkbox
+                    'functions_id' => $roles ? $roles : [], // Kirimkan array ID role
                 ],
             ]);
 
