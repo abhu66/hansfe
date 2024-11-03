@@ -15,9 +15,7 @@ Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->n
 Route::middleware(['isLoginValid'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get("/", [DashboardController::class, "showDashboard"])->name("dashboard");
-
-    Route::get("/user", [UserController::class, "showUser"])->name('user');
+    Route::get("/", [UserController::class, "showUser"])->name('user');
     Route::get("/user/create", [UserController::class, "create"])->name('user.create');
     Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 

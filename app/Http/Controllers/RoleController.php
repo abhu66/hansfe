@@ -72,7 +72,7 @@ class RoleController extends Controller
                 'json' => [ // Gunakan 'json' untuk mengirimkan data sebagai JSON
                     'name' => $name,
                     'is_active' => $is_active ? true : false, // Set true/false sesuai checkbox
-                    'functions_id' => $roles ? $roles : [], // Kirimkan array ID role
+                    'functions_id' => $roles ? $roles : [], // Ambil id role yang di ceklis
                 ],
             ]);
 

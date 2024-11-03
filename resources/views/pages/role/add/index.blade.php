@@ -39,17 +39,16 @@
                             <div class="col-lg-12">
                                 <div class="form-check mt-1">
                                     <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
-                                        value="1" {{ isset($data) && $data->is_active == 1 ? 'checked' : '' }}>
+                                        value="1" {{ isset($data) && $data->is_active == 1 ? 'checked' : '' }} checked>
                                     <label class="form-check-label ms-2" for="is_active">Is Active</label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="d-flex flex-wrap">
+                                <div>
                                     @foreach ($f_role as $data)
-                                        <div class="form-check mt-1 me-3"> <!-- Margin end for spacing -->
+                                        <div class="form-check mt-1"> <!-- Removed d-flex for vertical stacking -->
                                             <input type="checkbox" class="form-check-input" id="role_{{ $data->id }}"
-                                                name="roles[]" value="{{ $data->id }}"
-                                                {{ $data->is_active ? '' : 'checked' }}>
+                                                   name="roles[]" value="{{ $data->id }}" {{ $data->is_active ? '' : 'checked' }}>
                                             <label class="form-check-label ms-2" for="role_{{ $data->id }}">{{ $data->name }}</label>
                                         </div>
                                     @endforeach
