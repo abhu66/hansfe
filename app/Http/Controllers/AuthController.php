@@ -31,7 +31,7 @@ class AuthController extends Controller
                     Session::put('token', $data['token']);
                     Session::put('user', $data['user']);
 
-                    return redirect()->route('dashboard')->with('success','Login berhasil');
+                    return redirect()->route('user')->with('success','Login berhasil');
                 } else {
                     return redirect()->back()->with('error', $response->json('message'));
                 }
