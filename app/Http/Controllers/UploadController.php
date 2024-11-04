@@ -23,8 +23,16 @@ class UploadController extends Controller
 
                 return view("pages.upload.index", compact("file"));
             } else {
-                return redirect()->back()->with('error', 'Gagal mengambil data role.');
+                return redirect()->back()->with('error', $response->json('message'));
             }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -132,8 +140,16 @@ public function store(Request $request)
         ]);
 
         return response()->json(['message' => 'File uploaded successfully!']);
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+        // Get the response and decode JSON
+        $response = $e->getResponse();
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+
+        // Extract error message and redirect back with the message
+        $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+        return redirect()->back()->with('error', $errorMessage);
     } catch (\Throwable $th) {
-        return response()->json(['error' => $th->getMessage()], 500);
+        return redirect()->back()->with('error', $th->getMessage());
     }
 }
 

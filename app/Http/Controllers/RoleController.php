@@ -25,6 +25,14 @@ class RoleController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Gagal mengambil data role.');
             }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -51,6 +59,14 @@ class RoleController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Gagal mengambil data function role.');
             }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -77,6 +93,14 @@ class RoleController extends Controller
             ]);
 
             return redirect()->route('role');
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

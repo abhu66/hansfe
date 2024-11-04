@@ -28,13 +28,14 @@
                                         <th scope="col">Created by</th>
                                         <th scope="col">Updated by</th>
                                         <th scope="col">Role</th>
-                                        {{-- <th scope="col">Action</th> --}}
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($user as $data)
                                         <tr>
-                                            <th scope="row"><a href="#" class="fw-medium">{{ $loop->iteration }}</a>
+                                            <th scope="row"><a href="#"
+                                                    class="fw-medium">{{ $loop->iteration }}</a>
                                             </th>
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->email }}</td>
@@ -47,8 +48,12 @@
                                             <td>{{ $data->created_by }}</td>
                                             <td>{{ $data->updated_by }}</td>
                                             <td>{{ $data->role->name ?? '-' }}</td>
-                                            {{-- <td><a href="javascript:void(0);" class="link-success">View More <i
-                                                        class="ri-arrow-right-line align-middle"></i></a></td> --}}
+                                            <td>
+                                                <a href="{{ route('user.detail', $data->id) }}" class="link-primary">View</a> |
+                                                <a href="{{ route('user.edit', $data->id) }}" class="link-success">Edit</a> |
+                                                <a href="javascript:void(0);" class="link-danger">Delete</a>
+                                            </td>
+
                                         </tr>
                                     @endforeach
 

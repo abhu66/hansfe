@@ -64,7 +64,6 @@
                                 @if (Session::has('error'))
                                     <div class="alert alert-danger" role="alert">
                                         {{ Session::get('error') }}
-                                        {{-- <p class="h5 text-center text-danger">Username atau password tidak sesuai!</p> --}}
                                     </div>
                                 @endif
 
