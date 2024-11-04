@@ -30,10 +30,10 @@
                         @csrf
                         <div class="row g-3">
                             <input type="text" class="form-control" id="id" name="id" hidden
-                                placeholder="Enter your name" value="{{ $f_user_detail->id }}" required />
+                                value="{{ $f_user_detail->id }}" required />
                             <div class="col-lg-6">
                                 <div>
-                                    <label class="form-label" for="name">Name</label>
+                                    <label class="form-label" for="name">Nama</label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Enter your name" value="{{ $f_user_detail->name }}" required />
                                 </div>
@@ -47,12 +47,13 @@
                                 </div>
                             </div>
 
+
                             <div class="col-lg-6">
                                 <div>
                                     <label class="form-label" for="password">Password</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="*********"  />
+                                            placeholder="*********" />
                                         <span class="input-group-text" onclick="togglePassword('password', this)">
                                             <i class="fa fa-eye"></i>
                                         </span>
@@ -65,7 +66,7 @@
                                     <label class="form-label" for="c_password">Confirm Password</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="c_password" name="c_password"
-                                            placeholder="*********"  />
+                                            placeholder="*********" />
                                         <span class="input-group-text" onclick="togglePassword('c_password', this)">
                                             <i class="fa fa-eye"></i>
                                         </span>
@@ -75,13 +76,48 @@
 
                             <div class="col-lg-6">
                                 <div>
+                                    <label class="form-label" for="created_date">Created date</label>
+                                    <input type="text" class="form-control" id="created_date" name="created_date"
+                                        disabled placeholder="Enter created date" value="{{ $f_user_detail->created_date }}"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label class="form-label" for="updated_date">Updated date</label>
+                                    <input type="text" class="form-control" id="updated_date" name="updated_date"
+                                        disabled placeholder="Enter updated date" value="{{ $f_user_detail->updated_date }}"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label class="form-label" for="created_by">Created by</label>
+                                    <input type="text" class="form-control" id="created_by" name="created_by" disabled
+                                        placeholder="Enter created by" value="{{ $f_user_detail->created_by }}" required />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label class="form-label" for="updated_by">Updated by</label>
+                                    <input type="text" class="form-control" id="updated_by" name="updated_by" disabled
+                                        placeholder="Enter updated by" value="{{ $f_user_detail->updated_by }}" required />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
                                     <label class="form-label" for="role">Role</label>
                                     <select name="role_id" id="role_id" class="form-control" required>
                                         <option value="">Select a Role</option>
                                         @foreach ($f_role as $role)
-                                        <option value="{{ $role->id }}" {{ (isset($f_user_detail) && $f_user_detail->role == $role->name) ? 'selected' : '' }}>
-                                            {{ $role->name }}
-                                        </option>
+                                            <option value="{{ $role->id }}"
+                                                {{ isset($f_user_detail) && $f_user_detail->role == $role->name ? 'selected' : '' }}>
+                                                {{ $role->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

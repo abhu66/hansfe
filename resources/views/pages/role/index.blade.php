@@ -27,7 +27,7 @@
                                         <th scope="col">Updated date</th>
                                         <th scope="col">Created by</th>
                                         <th scope="col">Updated by</th>
-                                        {{-- <th scope="col">Action</th> --}}
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,12 +48,13 @@
                                                 {{ $data->created_by }}
                                             </td>
                                             <td>
-                                                {{ $data->updated_by ? \Carbon\Carbon::parse($data->updated_date)->format('d-m-Y H:i') : '-' }}
+                                                {{ $data->updated_by }}
                                             </td>
-                                            {{-- <td>
-                                                <a href="javascript:void(0);" class="link-success">View More <i
-                                                        class="ri-arrow-right-line align-middle"></i></a>
-                                            </td> --}}
+                                            <td>
+                                                <a href="{{ route('role.detail', $data->id) }}" class="link-primary">View</a> |
+                                                <a href="{{ route('role.edit', $data->id) }}" class="link-success">Edit</a> |
+                                                <a href="javascript:void(0);" class="link-danger">Delete</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

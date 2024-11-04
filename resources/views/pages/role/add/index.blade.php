@@ -48,8 +48,10 @@
                                     @foreach ($f_role as $data)
                                         <div class="form-check mt-1"> <!-- Removed d-flex for vertical stacking -->
                                             <input type="checkbox" class="form-check-input" id="role_{{ $data->id }}"
-                                                   name="roles[]" value="{{ $data->id }}" {{ $data->is_active ? '' : 'checked' }}>
-                                            <label class="form-check-label ms-2" for="role_{{ $data->id }}">{{ $data->name }}</label>
+                                                name="roles[]" value="{{ $data->id }}"
+                                                {{ $data->is_active ? '' : 'checked' }}>
+                                            <label class="form-check-label ms-2"
+                                                for="role_{{ $data->id }}">{{ $data->name }}</label>
                                         </div>
                                     @endforeach
                                 </div>
