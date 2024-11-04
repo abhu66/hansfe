@@ -1,17 +1,22 @@
 @extends('layouts.app')
 @section('title', 'List Users Page')
 @section('content')
+    @php
+        use App\Services\MenuService;
+        // dd(Session::get('user'));
+    @endphp
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Table Users</h4>
                     <div class="flex-shrink-0">
-                        <a href="{{ route('user.create') }}" class="btn btn-primary" id="addUserButton">
-                            <i class="ri-add-line align-middle"></i> Add User
-                        </a>
+                        @if (MenuService::hasAccess(Session::get('role_functions'), 'CRUD User'))
+                            <a href="{{ route('user.create') }}" class="btn btn-primary" id="addUserButton">
+                                <i class="ri-add-line align-middle"></i> Add User
+                            </a>
+                        @endif
                     </div>
-
                 </div><!-- end card header -->
 
                 <div class="card-body">
@@ -49,8 +54,13 @@
                                             <td>{{ $data->updated_by }}</td>
                                             <td>{{ $data->role->name ?? '-' }}</td>
                                             <td>
-                                                <a href="{{ route('user.detail', $data->id) }}" class="link-primary">View</a> |
-                                                <a href="{{ route('user.edit', $data->id) }}" class="link-success">Edit</a>
+                                                <a href="{{ route('user.detail', $data->id) }}"
+                                                    class="link-primary">View</a>
+                                                @if (MenuService::hasAccess(Session::get('role_functions'), 'CRUD User'))
+                                                    <a href="{{ route('user.edit', $data->id) }}"
+                                                        class="link-success">| Edit</a>
+                                                @endif
+
                                             </td>
 
                                         </tr>

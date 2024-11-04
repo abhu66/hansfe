@@ -1,17 +1,21 @@
 @extends('layouts.app')
 @section('title', 'Role Page')
 @section('content')
+    @php
+        use App\Services\MenuService;
+    @endphp
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Role Users</h4>
                     <div class="flex-shrink-0">
-                        <a href="{{ route('role.create') }}" class="btn btn-primary" id="addUserButton">
-                            <i class="ri-add-line align-middle"></i> Add Role
-                        </a>
+                        @if (MenuService::hasAccess(Session::get('role_functions'), 'CRUD Role'))
+                            <a href="{{ route('role.create') }}" class="btn btn-primary" id="addUserButton">
+                                <i class="ri-add-line align-middle"></i> Add Role
+                            </a>
+                        @endif
                     </div>
-
                 </div><!-- end card header -->
 
                 <div class="card-body">
@@ -39,7 +43,7 @@
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->is_active == 1 ? 'Active' : 'Non Active' }}</td>
                                             <td>
-                                                {{ $data->created_date}}
+                                                {{ $data->created_date }}
                                             </td>
                                             <td>
                                                 {{ $data->updated_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
@@ -51,8 +55,13 @@
                                                 {{ $data->updated_by }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('role.detail', $data->id) }}" class="link-primary">View</a> |
-                                                <a href="{{ route('role.edit', $data->id) }}" class="link-success">Edit</a>
+                                                <a href="{{ route('role.detail', $data->id) }}"
+                                                    class="link-primary">View</a>
+                                                @if (MenuService::hasAccess(Session::get('role_functions'), 'CRUD Role'))
+                                                    |
+                                                    <a href="{{ route('role.edit', $data->id) }}"
+                                                        class="link-success">Edit</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -61,11 +70,11 @@
                         </div>
                     </div>
 
-                    </div>
-                </div><!-- end card-body -->
-            </div><!-- end card -->
-        </div>
-        <!-- end col -->
+                </div>
+            </div><!-- end card-body -->
+        </div><!-- end card -->
+    </div>
+    <!-- end col -->
     </div>
     <!-- end row -->
 @endsection

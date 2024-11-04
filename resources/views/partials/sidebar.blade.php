@@ -1,3 +1,8 @@
+@php
+    use App\Services\MenuService;
+    // dd(Session::get('user'));
+@endphp
+
 <!-- ========== App Menu ========== -->
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
@@ -30,7 +35,8 @@
         <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <span class="d-flex align-items-center gap-2">
-                <img class="rounded header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
+                <img class="rounded header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
+                    alt="Header Avatar">
                 <span class="text-start">
                     <span
                         class="d-block fw-medium sidebar-user-name-text">{{ ucwords(Session::get('user.name')) }}</span>
@@ -46,21 +52,30 @@
             <div id="two-column-menu"></div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('user') }}">
-                        <i class="ri-user-line"></i> <span data-key="t-dashboards">User</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('role') }}">
-                        <i class="ri-group-line"></i> <span data-key="t-dashboards">Role</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('upload') }}">
-                        <i class="ri-upload-line"></i> <span data-key="t-dashboards">Upload</span>
-                    </a>
-                </li>
+                @if (MenuService::hasAccess(Session::get('role_functions'), 'View User'))
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('user') }}">
+                            <i class="ri-user-line"></i> <span data-key="t-dashboards">User</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if (MenuService::hasAccess(Session::get('role_functions'), 'View Role'))
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('role') }}">
+                            <i class="ri-group-line"></i> <span data-key="t-dashboards">Role</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if (MenuService::hasAccess(Session::get('role_functions'), 'View Upload'))
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('upload') }}">
+                            <i class="ri-upload-line"></i> <span data-key="t-dashboards">Upload</span>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </div>
         <!-- Sidebar -->
