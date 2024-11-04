@@ -47,7 +47,7 @@
                                         height="20">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                            <p class="mt-3 fs-15 fw-medium"></p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
                                     <h5 class="text-primary">Welcome Back!</h5>
-                                    <p class="text-muted">Sign in to continue to Velzon.</p>
+                                    <p class="text-muted">Sign in to continue to Hans.</p>
                                 </div>
 
                                 @if (Session::has('error'))
@@ -72,7 +72,7 @@
                                         @csrf
 
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Username</label>
+                                            <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="email" name="email"
                                                 placeholder="Enter email" required>
                                         </div>
@@ -116,8 +116,8 @@
                             <p class="mb-0 text-muted">&copy;
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i>
-                                by Themesbrand
+                                </script> Hans. Crafted with <i class="mdi mdi-heart text-danger"></i>
+
                             </p>
                         </div>
                     </div>

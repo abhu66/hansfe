@@ -44,8 +44,8 @@
                                                 <td>{{ $data->name }}</td>
                                                 <td>{{ $data->is_active == 1 ? 'Active' : 'Non Active' }}</td>
                                                 <td>
-                                                    {{ $data->created_date }}
-                                                </td>
+                                                   {{ $data->created_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
+                                               </td>
                                                 <td>
                                                     {{ $data->updated_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
                                                 </td>

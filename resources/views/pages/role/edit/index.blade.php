@@ -44,7 +44,7 @@
                                     <label class="form-label" for="is_active">Is Active</label>
                                     <div class="form-check mt-2">
                                         <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
-                                            value="1" {{ isset($data) && $data->is_active == 1 ? 'checked' : '' }}>
+                                            value="1" {{ isset($d_role) && $d_role->is_active == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label" for="is_active">Active</label>
                                     </div>
                                 </div>

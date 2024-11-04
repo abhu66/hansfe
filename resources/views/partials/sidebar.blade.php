@@ -30,6 +30,8 @@
         </button>
     </div>
 
+
+    <!--
     <div class="dropdown sidebar-user m-1 rounded">
         <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -46,6 +48,9 @@
             </span>
         </button>
     </div>
+    -->
+
+
     <div id="scrollbar">
         <div class="container-fluid">
             <div id="two-column-menu"></div>
