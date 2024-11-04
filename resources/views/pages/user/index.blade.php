@@ -50,8 +50,7 @@
                                             <td>{{ $data->role->name ?? '-' }}</td>
                                             <td>
                                                 <a href="{{ route('user.detail', $data->id) }}" class="link-primary">View</a> |
-                                                <a href="{{ route('user.edit', $data->id) }}" class="link-success">Edit</a> |
-                                                <a href="javascript:void(0);" class="link-danger">Delete</a>
+                                                <a href="{{ route('user.edit', $data->id) }}" class="link-success">Edit</a>
                                             </td>
 
                                         </tr>

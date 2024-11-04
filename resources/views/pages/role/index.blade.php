@@ -52,8 +52,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('role.detail', $data->id) }}" class="link-primary">View</a> |
-                                                <a href="{{ route('role.edit', $data->id) }}" class="link-success">Edit</a> |
-                                                <a href="javascript:void(0);" class="link-danger">Delete</a>
+                                                <a href="{{ route('role.edit', $data->id) }}" class="link-success">Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach
