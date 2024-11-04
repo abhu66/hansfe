@@ -9,7 +9,9 @@
                         <h4 class="card-title mb-0 me-2">Upload Excel File</h4>
                         <div id="progressContainer" class="d-none" style="width: 200px;">
                             <div class="progress" style="height: 30%">
-                                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%; padding: 5px;h" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Uploading File</div>
+                                <div id="progressBar" class="progress-bar" role="progressbar"
+                                    style="width: 0%; padding: 5px;h" aria-valuenow="0" aria-valuemin="0"
+                                    aria-valuemax="100">Uploading File</div>
                             </div>
                         </div>
 
@@ -45,7 +47,11 @@
                                             <th scope="row">
                                                 <a href="#" class="fw-medium">{{ $loop->iteration }}</a>
                                             </th>
-                                            <td>{{ $data->filename }}</td>
+                                            <td>
+                                                <a href="{{ $data->url_file }}" download>
+                                                    {{ $data->filename }} &nbsp; <i class="fas fa-download"></i>
+                                                </a>
+                                            </td>
                                             <td>
                                                 @if ($data->status == 1)
                                                     <span class="badge bg-primary">Process</span>
@@ -126,7 +132,7 @@
 
                 var formData = new FormData(this); // Create FormData object
 
-                        // Show the progress container and reset the progress bar
+                // Show the progress container and reset the progress bar
                 const progressContainer = $('#progressContainer');
                 const progressBar = $('#progressBar');
 
@@ -136,7 +142,7 @@
                 progressBar.text('Uploading File');
 
                 $.ajax({
-                    url: '{{ route("upload.store") }}',
+                    url: '{{ route('upload.store') }}',
                     type: 'POST',
                     data: formData,
                     contentType: false,
@@ -147,8 +153,10 @@
                         xhr.upload.addEventListener("progress", function(evt) {
                             if (evt.lengthComputable) {
                                 var percentComplete = (evt.loaded / evt.total) * 100;
-                                progressBar.width(percentComplete + '%'); // Update the width of the progress bar
-                                progressBar.attr('aria-valuenow', percentComplete); // Update the aria value
+                                progressBar.width(percentComplete +
+                                    '%'); // Update the width of the progress bar
+                                progressBar.attr('aria-valuenow',
+                                    percentComplete); // Update the aria value
                                 // Optionally update text to show progress
                                 progressBar.text('Uploading File...');
                             }
@@ -156,9 +164,11 @@
                         return xhr;
                     },
                     success: function(response) {
-                        progressBar.text('Upload Complete'); // Change text when upload is complete
+                        progressBar.text(
+                            'Upload Complete'); // Change text when upload is complete
                         setTimeout(() => {
-                            progressContainer.addClass('d-none'); // Hide the progress bar after a delay
+                            progressContainer.addClass(
+                                'd-none'); // Hide the progress bar after a delay
                             progressBar.width('0%'); // Reset width for the next upload
                             progressBar.attr('aria-valuenow', 0); // Reset aria value
                             progressBar.text('Uploading File'); // Reset text
@@ -215,7 +225,7 @@
                     dataTableBody.scrollTop = scrollPosition;
 
                     // Hide loading message after data is refreshed
-                        // Update the file count for comparison
+                    // Update the file count for comparison
 
                     $('#loadingMessage').hide();
                 })
@@ -252,6 +262,5 @@
                 }
             }, 500); // Update every 500ms
         }
-
     </script>
 @endpush
