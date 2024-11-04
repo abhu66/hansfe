@@ -1,6 +1,5 @@
 @php
     use App\Services\MenuService;
-    // dd(Session::get('user'));
 @endphp
 
 <!-- ========== App Menu ========== -->
@@ -68,7 +67,7 @@
                     </li>
                 @endif
 
-                @if (MenuService::hasAccess(Session::get('role_functions'), 'View Upload'))
+                @if (MenuService::hasAccess(Session::get('role_functions'), 'Upload Excel'))
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ route('upload') }}">
                             <i class="ri-upload-line"></i> <span data-key="t-dashboards">Upload</span>

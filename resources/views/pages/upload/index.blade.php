@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Upload Page')
 @section('content')
+    @php
+        use App\Services\MenuService;
+    @endphp
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
@@ -24,66 +28,69 @@
                     </div>
                 </div><!-- end card header -->
 
-                <div class="card-body">
-                    {{-- <p class="text-muted">Use <code>table</code> class to show bootstrap-based default table.</p> --}}
-                    <div class="live-preview">
-                        <div class="table-responsive">
-                            <table class="table align-middle table-nowrap mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Filename</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Created by</th>
-                                        <th scope="col">Created date</th>
-                                        <th scope="col">Updated by</th>
-                                        <th scope="col">Updated date</th>
-                                        {{-- <th scope="col">Action</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody id="dataTableBody">
-                                    @foreach ($file as $data)
+                @if (MenuService::hasAccess(Session::get('role_functions'), 'Upload Excel'))
+                    <div class="card-body">
+                        {{-- <p class="text-muted">Use <code>table</code> class to show bootstrap-based default table.</p> --}}
+                        <div class="live-preview">
+                            <div class="table-responsive">
+                                <table class="table align-middle table-nowrap mb-0">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">
-                                                <a href="#" class="fw-medium">{{ $loop->iteration }}</a>
-                                            </th>
-                                            <td>
-                                                <a href="{{ $data->url_file }}" download>
-                                                    {{ $data->filename }} &nbsp; <i class="fas fa-download"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @if ($data->status == 1)
-                                                    <span class="badge bg-primary">Process</span>
-                                                @elseif ($data->status == 2)
-                                                    <span class="badge bg-success">Success</span>
-                                                @else
-                                                    <span class="badge bg-danger">Failed</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{ $data->created_by }}
-                                            </td>
-                                            <td>
-                                                {{ $data->created_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
-                                            </td>
-                                            <td>
-                                                {{ $data->updated_by }}
-                                            </td>
-                                            <td>
-                                                {{ $data->updated_date ? \Carbon\Carbon::parse($data->updated_date)->format('d-m-Y H:i') : '-' }}
-                                            </td>
-                                            {{-- <td>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Filename</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Created by</th>
+                                            <th scope="col">Created date</th>
+                                            <th scope="col">Updated by</th>
+                                            <th scope="col">Updated date</th>
+                                            {{-- <th scope="col">Action</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dataTableBody">
+                                        @foreach ($file as $data)
+                                            <tr>
+                                                <th scope="row">
+                                                    <a href="#" class="fw-medium">{{ $loop->iteration }}</a>
+                                                </th>
+                                                <td>
+                                                    <a href="{{ $data->url_file }}" download>
+                                                        {{ $data->filename }} &nbsp; <i class="fas fa-download"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    @if ($data->status == 1)
+                                                        <span class="badge bg-primary">Process</span>
+                                                    @elseif ($data->status == 2)
+                                                        <span class="badge bg-success">Success</span>
+                                                    @else
+                                                        <span class="badge bg-danger">Failed</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $data->created_by }}
+                                                </td>
+                                                <td>
+                                                    {{ $data->created_date ? \Carbon\Carbon::parse($data->created_date)->format('d-m-Y H:i') : '-' }}
+                                                </td>
+                                                <td>
+                                                    {{ $data->updated_by }}
+                                                </td>
+                                                <td>
+                                                    {{ $data->updated_date ? \Carbon\Carbon::parse($data->updated_date)->format('d-m-Y H:i') : '-' }}
+                                                </td>
+                                                {{-- <td>
                                                 <a href="javascript:void(0);" class="link-success">View More <i
                                                         class="ri-arrow-right-line align-middle"></i></a>
                                             </td> --}}
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div><!-- end card-body -->
+                @endif
+                <!-- end card-body -->
             </div><!-- end card -->
         </div>
         <!-- end col -->
