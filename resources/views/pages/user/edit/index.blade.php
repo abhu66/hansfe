@@ -78,7 +78,7 @@
                                 <div>
                                     <label class="form-label" for="created_date">Created date</label>
                                     <input type="text" class="form-control" id="created_date" name="created_date"
-                                        disabled placeholder="Enter created date" value="{{ $f_user_detail->created_date }}"
+                                        disabled placeholder="Enter created date" value="{{ $f_user_detail->created_date ? \Carbon\Carbon::parse($f_user_detail->created_date)->format('d-m-Y H:i') : '-' }}"
                                         required />
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <div>
                                     <label class="form-label" for="updated_date">Updated date</label>
                                     <input type="text" class="form-control" id="updated_date" name="updated_date"
-                                        disabled placeholder="Enter updated date" value="{{ $f_user_detail->updated_date }}"
+                                        disabled placeholder="Enter updated date" value="{{ $f_user_detail->updated_date ? \Carbon\Carbon::parse($f_user_detail->updated_date)->format('d-m-Y H:i') : '-' }}"
                                         required />
                                 </div>
                             </div>
