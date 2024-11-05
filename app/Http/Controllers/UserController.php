@@ -172,6 +172,34 @@ class UserController extends Controller
         }
     }
 
+    public function index()
+    {
+        try {
+            $token = Session::get('token');
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get(env('API_URL') . '/api/v1/user/get');
+
+            if ($response->successful() && $response->json('success')) {
+                $data = $response->json('data');
+                $data = json_decode($response);
+                $user = $data->data;
+                // dd($user);
+                return view("pages.index", compact("user"));
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
 
     public function create()
     {

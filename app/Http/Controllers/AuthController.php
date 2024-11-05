@@ -34,7 +34,7 @@ class AuthController extends Controller
                 Session::put('user', $data['user']);
                 Session::put('role_functions', $data['user']['role']['functions']);
 
-                return redirect()->route('user')->with('success', 'Login berhasil');
+                return redirect()->route('index')->with('success', 'Login berhasil');
             } else {
                 return redirect()->back()->with('error', $response->json('message'));
             }
