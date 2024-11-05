@@ -11,7 +11,15 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view("auth.login");
+        // panggil controller CompanyController
+        $companyController = new CompanyController();
+        $companyCheckData = $companyController->companyCheck();
+
+        if($companyCheckData->json('success') == false) {
+            return redirect()->route('company-not-found')->with('error', $companyCheckData->json('message'));
+        } else {
+            return view("auth.login");
+        }
     }
 
     public function login(Request $request)

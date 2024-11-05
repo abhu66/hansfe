@@ -13,9 +13,7 @@ class CompanyController extends Controller
         try {
             $token = Session::get('token');
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->post(env('API_URL') . '/api/v1/company/check', [
+            $response = Http::withHeaders([])->post(env('API_URL') . '/api/v1/company/check', [
 
                 'url'=> request()->root() . "/",
             ]);
