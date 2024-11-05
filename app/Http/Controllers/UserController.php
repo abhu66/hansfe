@@ -21,7 +21,7 @@ class UserController extends Controller
             $c_password = $request->c_password;
             $roleId = $request->role_id;
 
-             // Validate if password and c_password match
+            // Validate if password and c_password match
             if (!empty($password) && !empty($c_password) && $password !== $c_password) {
                 return redirect()->back()->with('error', 'Passwords and Confirm Password do not match.');
             }
@@ -242,11 +242,11 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
-
     }
 
 
-    public function showDetailUser ($id) {
+    public function showDetailUser($id)
+    {
         try {
             $token = Session::get('token');
             $response = Http::withHeaders([
@@ -264,7 +264,7 @@ class UserController extends Controller
             } else {
                 $data = $response->json('message');
 
-                return view ("pages.user.detail.index", compact("data"));
+                return view("pages.user.detail.index", compact("data"));
             }
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             // Get the response and decode JSON
@@ -312,7 +312,6 @@ class UserController extends Controller
             } else {
                 return redirect()->back()->with('error', $response_role->json('message'));
             }
-
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             // Get the response and decode JSON
             $response = $e->getResponse();
@@ -326,9 +325,69 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+
+    public function profile($id)
+    {
+        try {
+            $token = Session::get('token');
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->post(env('API_URL') . '/api/v1/user/view', [
+                'id' => $id,
+            ]);
+
+
+
+            if ($response->successful() && $response->json('success')) {
+                $data = $response->json('data');
+                $data = json_decode($response);
+                $d_user = $data->data;
+
+
+                $response_detail_role = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                ])->post(env('API_URL') . '/api/v1/roles/view', [
+                    'id' => $d_user->role_id
+                ]);
+
+                $response_list_function = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                ])->post(env('API_URL') . '/api/v1/functions/get');
+
+                if ($response_detail_role->successful() && $response_detail_role->json('success') && $response_list_function->successful() && $response_list_function->json('success')) {
+                    $data_detail_role = $response_detail_role->json('data');
+                    $d_role = json_decode(json_encode($data_detail_role));
+
+                    $data_list_function = $response_list_function->json('data');
+                    $d_list_function = json_decode(json_encode($data_list_function));
+
+                    return view("pages.profile.index", compact("d_user", "d_role", "d_list_function"));
+                } else {
+                    $data = $response->json('message');
+
+                    return view("pages.profile.index", compact("data"));
+                }
+            } else {
+                $data = $response->json('message');
+
+                return view("pages.profile.index", compact("data"));
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Get the response and decode JSON
+            $response = $e->getResponse();
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+
+            // Extract error message and redirect back with the message
+            $errorMessage = $responseBody['message'] ?? 'Something went wrong.';
+            return redirect()->back()->with('error', $errorMessage);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+
+
     public function destroy(string $id)
     {
         //

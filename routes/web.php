@@ -15,6 +15,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['isLoginValid'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
+
     Route::get("/", [UserController::class, 'index'])->name('index');
     Route::get("/user", [UserController::class, "showUser"])->name('user');
     Route::get("/user/create", [UserController::class, "create"])->name('user.create');
