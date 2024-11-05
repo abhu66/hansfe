@@ -13,18 +13,34 @@ class UploadController extends Controller
     {
         try {
             $token = Session::get('token');
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->post(env('API_URL') . '/api/v1/file/get');
 
-            if ($response->successful() && $response->json('success')) {
-                $data = $response->json('data');
-                $file = json_decode(json_encode($data)); // Mengonversi array menjadi objek jika dibutuhkan
-
-                return view("pages.upload.index", compact("file"));
-            } else {
-                return redirect()->back()->with('error', $response->json('message'));
+            if (!$token) {
+                return redirect()->back()->with('error', 'Token tidak ditemukan.');
             }
+
+            // panggil controller CompanyController
+            $companyController = new CompanyController();
+            $companyCheckData = $companyController->companyCheck();
+
+            if($companyCheckData->json('success') == false) {
+                return redirect()->route('company-not-found')->with('error', $companyCheckData->json('message'));
+            } else {
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                ])->post(env('API_URL') . '/api/v1/file/get', [
+                    'company_id'=> Session::get('user.company_id'),
+                ]);
+
+                if ($response->successful() && $response->json('success')) {
+                    $data = $response->json('data');
+                    $file = json_decode(json_encode($data)); // Mengonversi array menjadi objek jika dibutuhkan
+
+                    return view("pages.upload.index", compact("file"));
+                } else {
+                    return redirect()->back()->with('error', $response->json('message'));
+                }
+            }
+
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             // Get the response and decode JSON
             $response = $e->getResponse();

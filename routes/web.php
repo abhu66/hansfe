@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/login", [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get("/company-not-found", [CompanyController::class, 'companyNotFound'])->name('company-not-found');
 // Route::get('/change-password', [AuthController::class, 'showChangePassword'])->name('change-password');
 // Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
 

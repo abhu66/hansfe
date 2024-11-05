@@ -29,6 +29,8 @@
                     <form method="POST" action="{{ route('user.update') }}">
                         @csrf
                         <div class="row g-3">
+                            <input type="text" name="company_id" hidden value="{{ $company->id }}">
+                            
                             <input type="text" class="form-control" id="id" name="id" hidden
                                 value="{{ $f_user_detail->id }}" required />
                             <div class="col-lg-6">

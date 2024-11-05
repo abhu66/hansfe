@@ -30,6 +30,8 @@
                         @csrf
                         <div class="row g-3">
 
+                            <input type="text" name="company_id" hidden value="{{ $company->id }}">
+
                             <div class="col-lg-6">
                                 <div>
                                     <label class="form-label" for="name">Name</label>
