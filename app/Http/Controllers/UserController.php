@@ -21,6 +21,11 @@ class UserController extends Controller
             $c_password = $request->c_password;
             $roleId = $request->role_id;
 
+             // Validate if password and c_password match
+            if (!empty($password) && !empty($c_password) && $password !== $c_password) {
+                return redirect()->back()->with('error', 'Passwords and Confirm Password do not match.');
+            }
+
             $client = new Client();
             $res = $client->request('POST', env('API_URL') . '/api/v1/user/create',  [
                 'headers' => [
@@ -77,6 +82,11 @@ class UserController extends Controller
             $c_password = $request->c_password;
             $roleId = $request->role_id;
 
+
+            // Validate if password and c_password match
+            if (!empty($password) && !empty($c_password) && $password !== $c_password) {
+                return redirect()->back()->with('error', 'Passwords and Confirm Password do not match.');
+            }
             $client = new Client();
 
             // Initialize an empty array for multipart data
