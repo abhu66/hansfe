@@ -52,7 +52,7 @@
                                                 </td>
                                                 <td>{{ $data->created_by }}</td>
                                                 <td>{{ $data->updated_by }}</td>
-                                                <td>{{ $data->role->name ?? '-' }}</td>
+                                                <td>{{ $data->role ?? '-' }}</td>
                                                 <td>
                                                     <a href="{{ route('user.detail', $data->id) }}"
                                                         class="link-primary">View</a>
