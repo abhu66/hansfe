@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/login", [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/change-password', [AuthController::class, 'showChangePassword'])->name('change-password');
-Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
+// Route::get('/change-password', [AuthController::class, 'showChangePassword'])->name('change-password');
+// Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
 
 Route::middleware(['isLoginValid'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
