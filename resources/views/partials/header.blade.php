@@ -157,23 +157,26 @@
                     <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
-                                alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user"
+                                src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ ucwords(Session::get('user.name')) }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ ucwords(Session::get('user.role.name')) }}</span>
+                                <span
+                                    class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ ucwords(Session::get('user.name')) }}</span>
+                                <span
+                                    class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ ucwords(Session::get('user.role.name')) }}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">{{ ucwords(Session::get('user.name')) }}</h6>
-                        <a class="dropdown-item" href="{{ route('profile', Session::get('user.id'))}}"><i
+                        <a class="dropdown-item" href="{{ route('profile', Session::get('user.id')) }}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"><i
-                                class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle" data-key="t-logout">Logout</span></a>
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="confirmLogout()">
+                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
+                            <span class="align-middle" data-key="t-logout">Logout</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -181,31 +184,24 @@
     </div>
 </header>
 
-<!-- removeNotificationModal -->
-<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    id="NotificationModalbtn-close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mt-2 text-center">
-                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                        colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                        <h4>Are you sure ?</h4>
-                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
-                    </div>
-                </div>
-                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete
-                        It!</button>
-                </div>
-            </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+<script>
+    function confirmLogout() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to logout?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Logout!',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true,
+            customClass: {
+                confirmButton: 'btn-danger' // Menambahkan kelas 'btn-danger' ke tombol konfirmasi
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect ke route logout
+                window.location.href = "{{ route('logout') }}";
+            }
+        });
+    }
+</script>
