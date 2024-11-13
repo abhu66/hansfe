@@ -18,13 +18,29 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+
+
+
+ <!-- Inline CSS for background -->
+      @php
+          $backgroundImageUrl = isset($f_company) && !empty($f_company->background_image_url) ? env('API_URL') . '/api/images/bg/' . $f_company->background_image_url : 'default-image-url.jpg';
+      @endphp
+    <style>
+
+                 .auth-page-wrapper {
+                  background-image: url('{{ $backgroundImageUrl }}'); background-size: cover;
+                     background-position: center;
+                     height: 100vh;
+                 }
+             </style>
+
 </head>
 
 <body>
 
     <div class="auth-page-wrapper pt-5">
         <!-- auth page bg -->
-        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <!-- <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
             <div class="shape">
@@ -34,6 +50,7 @@
                 </svg>
             </div>
         </div>
+      -->
 
         <!-- auth page content -->
         <div class="auth-page-content">
@@ -43,10 +60,14 @@
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="#" class="d-inline-block auth-logo">
-                                    <img src="{{ asset('assets/images/logo-light.png') }}" alt=""
-                                        height="20">
+                                    @if(Session::has('logo_url'))
+                                        <img src="{{ env('API_URL') . '/api/images/logo/' . Session::get('logo_url') }}" alt="" height="100">
+                                    @else
+                                        <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="20">
+                                    @endif
                                 </a>
                             </div>
+
                             <p class="mt-3 fs-15 fw-medium"></p>
                         </div>
                     </div>
